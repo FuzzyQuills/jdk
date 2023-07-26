@@ -4798,7 +4798,8 @@ static int get_active_processor_count() {
 #endif // CPU_ALLOC
 
   // pid 0 means the current thread - which we have to assume represents the process
-  if (sched_getaffinity(0, cpus_size, cpus_p) == 0) {
+  int sched_getaffinity_result = sched_getaffinity(0, cpus_size, cpus_p);
+  if (sched_getaffinity_result == 0) {
     if (cpus_p != &cpus) { // can only be true when CPU_ALLOC used
       cpu_count = CPU_COUNT_S(cpus_size, cpus_p);
     }
